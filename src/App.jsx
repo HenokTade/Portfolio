@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 const NAV_ITEMS = [
   { id: 'about', label: 'About' },
@@ -65,13 +65,15 @@ const EXPERIENCE = [
     company: 'GIV Ethiopia & AASTU ICT Office',
     period: 'Jul – Sep 2025',
     items: [
-      'Built the AASTU Archive System — a document management platform with full-text search',
-      'Developed responsive frontend for GIV Ethiopia\'s official website',
+      "Built the AASTU Archive System — a document management platform with full-text search",
+      "Developed responsive frontend for GIV Ethiopia's official website",
       'Delivered production-grade code following clean architecture patterns',
       'Recognized with a Certificate of Completion from GIV Ethiopia',
     ],
   },
 ]
+
+/* ───────────────────────────── COMPONENTS ───────────────────────────── */
 
 function Particles() {
   const canvasRef = useRef(null)
@@ -81,10 +83,7 @@ function Particles() {
     const ctx = canvas.getContext('2d')
     let animId
 
-    const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
     resize()
     window.addEventListener('resize', resize)
 
@@ -99,19 +98,14 @@ function Particles() {
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-
       particles.forEach((p, i) => {
-        p.x += p.vx
-        p.y += p.vy
-
+        p.x += p.vx; p.y += p.vy
         if (p.x < 0 || p.x > canvas.width) p.vx *= -1
         if (p.y < 0 || p.y > canvas.height) p.vy *= -1
-
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(99, 102, 241, ${p.alpha})`
         ctx.fill()
-
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[j].x - p.x
           const dy = particles[j].y - p.y
@@ -125,10 +119,8 @@ function Particles() {
           }
         }
       })
-
       animId = requestAnimationFrame(animate)
     }
-
     animate()
     return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize) }
   }, [])
@@ -136,19 +128,137 @@ function Particles() {
   return <canvas ref={canvasRef} id="particles-canvas" />
 }
 
+/* ── 1. CUSTOM CURSOR ── */
+function CustomCursor() {
+  const cursorRef = useRef(null)
+  const trailRef = useRef(null)
+  const [touchDevice, setTouchDevice] = useState(false)
+
+  useEffect(() => {
+    setTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  }, [])
+
+  useEffect(() => {
+    if (touchDevice) return
+    const cursor = cursorRef.current
+    const trail = trailRef.current
+    if (!cursor) return
+
+    let mx = 0, my = 0
+    let cx = 0, cy = 0
+    let trailX = 0, trailY = 0
+
+    const onMouse = (e) => { mx = e.clientX; my = e.clientY }
+
+    const animate = () => {
+      cx += (mx - cx) * 0.12
+      cy += (my - cy) * 0.12
+      trailX += (mx - trailX) * 0.06
+      trailY += (my - trailY) * 0.06
+      cursor.style.transform = `translate(${cx - 4}px, ${cy - 4}px)`
+      if (trail) trail.style.transform = `translate(${trailX - 20}px, ${trailY - 20}px)`
+      requestAnimationFrame(animate)
+    }
+
+    window.addEventListener('mousemove', onMouse)
+    document.body.style.cursor = 'none'
+    animate()
+
+    return () => { window.removeEventListener('mousemove', onMouse); document.body.style.cursor = '' }
+  }, [touchDevice])
+
+  if (touchDevice) return null
+  return (
+    <>
+      <div ref={trailRef} className="cursor-trail" />
+      <div ref={cursorRef} className="custom-cursor" />
+    </>
+  )
+}
+
+/* ── 2. TYPEWRITER ── */
+const TITLES = ['Software Engineering Graduate', 'Full-Stack Developer', 'Security-Minded Engineer']
+
+function Typewriter({ words = TITLES }) {
+  const [text, setText] = useState('')
+  const [idx, setIdx] = useState(0)
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    const current = words[idx]
+    let timer
+
+    if (!deleting && text === current) {
+      timer = setTimeout(() => setDeleting(true), 2200)
+    } else if (deleting && text === '') {
+      setDeleting(false)
+      setIdx((i) => (i + 1) % words.length)
+    } else {
+      timer = setTimeout(
+        () => setText(deleting ? current.slice(0, -1) : current.slice(0, text.length + 1)),
+        deleting ? 30 : 70 + Math.random() * 50
+      )
+    }
+    return () => clearTimeout(timer)
+  }, [text, idx, deleting, words])
+
+  return (
+    <span className="typewriter">
+      {text}
+      <span className="cursor-blink">|</span>
+    </span>
+  )
+}
+
+/* ── 3. SCROLL PROGRESS BAR ── */
+function ScrollProgress() {
+  const [w, setW] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const st = window.scrollY
+      const dh = document.documentElement.scrollHeight - window.innerHeight
+      setW(dh > 0 ? Math.min((st / dh) * 100, 100) : 0)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return <div className="scroll-progress-track"><div className="scroll-progress-fill" style={{ width: `${w}%` }} /></div>
+}
+
+/* ── 4. SCROLL-TO-TOP ── */
+function ScrollToTop() {
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 400)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <button
+      className={`scroll-top-btn ${show ? 'visible' : ''}`}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      aria-label="Scroll to top"
+    >
+      ↑
+    </button>
+  )
+}
+
+/* ── useActiveSection ── */
 function useActiveSection() {
   const [active, setActive] = useState('about')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id)
-        })
+        entries.forEach((entry) => { if (entry.isIntersecting) setActive(entry.target.id) })
       },
       { rootMargin: '-40% 0px -55% 0px' }
     )
-
     document.querySelectorAll('section[id]').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [])
@@ -156,22 +266,19 @@ function useActiveSection() {
   return active
 }
 
+/* ── Section wrapper ── */
 function Section({ id, number, title, children, className = '' }) {
   const ref = useRef(null)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.querySelectorAll('.scroll-reveal').forEach((child) => child.classList.add('visible'))
-        }
+        if (entry.isIntersecting) el.querySelectorAll('.scroll-reveal').forEach((c) => c.classList.add('visible'))
       },
       { threshold: 0.1 }
     )
-
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
@@ -188,6 +295,7 @@ function Section({ id, number, title, children, className = '' }) {
   )
 }
 
+/* ── Animated counter ── */
 function AnimatedNumber({ value, suffix = '' }) {
   const [display, setDisplay] = useState(0)
   const ref = useRef(null)
@@ -195,24 +303,22 @@ function AnimatedNumber({ value, suffix = '' }) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
         let start = 0
         const duration = 1500
-        const step = (timestamp) => {
-          if (!start) start = timestamp
-          const progress = Math.min((timestamp - start) / duration, 1)
-          setDisplay(Math.floor(progress * value))
-          if (progress < 1) requestAnimationFrame(step)
+        const step = (ts) => {
+          if (!start) start = ts
+          const p = Math.min((ts - start) / duration, 1)
+          setDisplay(Math.floor(p * value))
+          if (p < 1) requestAnimationFrame(step)
         }
         requestAnimationFrame(step)
         observer.disconnect()
       },
       { threshold: 0.5 }
     )
-
     observer.observe(el)
     return () => observer.disconnect()
   }, [value])
@@ -220,14 +326,15 @@ function AnimatedNumber({ value, suffix = '' }) {
   return <span ref={ref}>{display}{suffix}</span>
 }
 
+/* ───────────────────────────── APP ───────────────────────────── */
+
 export default function App() {
   const [dark, setDark] = useState(true)
   const activeSection = useActiveSection()
 
   useEffect(() => {
     const saved = localStorage.getItem('theme')
-    const isDark = saved ? saved === 'dark' : true
-    setDark(isDark)
+    setDark(saved ? saved === 'dark' : true)
   }, [])
 
   useEffect(() => {
@@ -238,18 +345,20 @@ export default function App() {
   return (
     <>
       <Particles />
+      <CustomCursor />
+      <ScrollProgress />
+      <ScrollToTop />
       <div className="app-layout">
-        {/* Sidebar */}
         <aside className="sidebar">
           <div className="sidebar-inner">
-            <div style={{ display:'flex', alignItems:'center', gap:'0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div className="avatar">HT</div>
-              <button onClick={() => setDark(p => !p)} className="theme-toggle" aria-label="Toggle theme">
+              <button onClick={() => setDark((p) => !p)} className="theme-toggle" aria-label="Toggle theme">
                 {dark ? '☀️' : '🌙'}
               </button>
             </div>
             <h1>Henok Tademe</h1>
-            <div className="title-role">Software Engineering Graduate</div>
+            <div className="title-role"><Typewriter /></div>
             <div className="title-tagline">
               Building secure, scalable web applications with modern full-stack technologies.
             </div>
@@ -261,6 +370,11 @@ export default function App() {
                 </a>
               ))}
             </div>
+
+            {/* 5. RESUME DOWNLOAD BUTTON */}
+            <a href="/resume.pdf" download className="resume-btn">
+              📄 Download Resume
+            </a>
 
             <nav className="nav-links">
               {NAV_ITEMS.map((item) => (
@@ -282,9 +396,7 @@ export default function App() {
           </div>
         </aside>
 
-        {/* Main Content */}
         <main className="main-content">
-          {/* About */}
           <Section id="about" number="01" title="About">
             <p className="about-text scroll-reveal">
               I'm a recent <strong>Software Engineering</strong> graduate from AASTU with a passion for crafting
@@ -296,7 +408,6 @@ export default function App() {
               Currently seeking a <strong>Junior Software Engineer</strong> role where I can contribute to
               impactful products, collaborate with experienced engineers, and continue growing as a developer.
             </p>
-
             <div className="about-highlights scroll-reveal scroll-reveal-delay-2">
               <div className="about-card"><div className="card-icon">🎓</div><div className="card-value"><AnimatedNumber value={2026} /></div><div className="card-label">Graduation Year</div></div>
               <div className="about-card"><div className="card-icon">📁</div><div className="card-value"><AnimatedNumber value={5} /></div><div className="card-label">Projects Built</div></div>
@@ -305,26 +416,17 @@ export default function App() {
             </div>
           </Section>
 
-          {/* Skills */}
           <Section id="skills" number="02" title="Skills">
             <div className="skills-grid">
               {SKILLS.map((cat, i) => (
                 <div key={cat.category} className={`skill-category scroll-reveal scroll-reveal-delay-${i % 4}`}>
-                  <div className="skill-category-header">
-                    <span className="cat-icon">{cat.icon}</span>
-                    {cat.category}
-                  </div>
-                  <div className="skill-tags">
-                    {cat.items.map((skill) => (
-                      <span key={skill} className="skill-tag">{skill}</span>
-                    ))}
-                  </div>
+                  <div className="skill-category-header"><span className="cat-icon">{cat.icon}</span>{cat.category}</div>
+                  <div className="skill-tags">{cat.items.map((s) => <span key={s} className="skill-tag">{s}</span>)}</div>
                 </div>
               ))}
             </div>
           </Section>
 
-          {/* Projects */}
           <Section id="projects" number="03" title="Projects">
             <div className="projects-grid">
               {PROJECTS.map((p, i) => (
@@ -332,24 +434,17 @@ export default function App() {
                   <div className="project-top">
                     <h3 className="project-title">{p.title}</h3>
                     <div className="project-links">
-                      {p.live && (
-                        <a href={p.live} target="_blank" rel="noopener noreferrer" title="Live Demo">🔗</a>
-                      )}
+                      {p.live && <a href={p.live} target="_blank" rel="noopener noreferrer" title="Live Demo">🔗</a>}
                       <a href={p.github} target="_blank" rel="noopener noreferrer" title="Source Code">📂</a>
                     </div>
                   </div>
-                  <div className="project-tech">
-                    {p.tech.map((t) => <span key={t}>{t}</span>)}
-                  </div>
-                  <div className="project-desc">
-                    <p>{p.description}</p>
-                  </div>
+                  <div className="project-tech">{p.tech.map((t) => <span key={t}>{t}</span>)}</div>
+                  <div className="project-desc"><p>{p.description}</p></div>
                 </div>
               ))}
             </div>
           </Section>
 
-          {/* Experience */}
           <Section id="experience" number="04" title="Experience">
             <div className="timeline">
               {EXPERIENCE.map((exp) => (
@@ -358,15 +453,12 @@ export default function App() {
                   <div className="timeline-date">{exp.period}</div>
                   <div className="timeline-role">{exp.role}</div>
                   <div className="timeline-company">{exp.company}</div>
-                  <ul className="timeline-desc">
-                    {exp.items.map((item) => <li key={item}>{item}</li>)}
-                  </ul>
+                  <ul className="timeline-desc">{exp.items.map((item) => <li key={item}>{item}</li>)}</ul>
                 </div>
               ))}
             </div>
           </Section>
 
-          {/* Education */}
           <Section id="education" number="05" title="Education">
             <div className="education-card scroll-reveal">
               <div className="edu-major">B.Sc. Software Engineering</div>
@@ -376,12 +468,12 @@ export default function App() {
                 <span className="gpa">⭐ GPA: 3.40 / 4.00</span>
               </div>
               <div className="edu-project">
-                <strong>Final Year Project:</strong> Adaptive Next Generation Firewall — a two-VM security prototype integrating nftables, Suricata IDS/IPS, and ClamAV with a Flask-based decision engine.
+                <strong>Final Year Project:</strong> Adaptive Next Generation Firewall — a two-VM security prototype
+                integrating nftables, Suricata IDS/IPS, and ClamAV with a Flask-based decision engine.
               </div>
             </div>
           </Section>
 
-          {/* Contact */}
           <Section id="contact" number="06" title="Contact">
             <div className="contact-grid">
               <a href="mailto:henoktademe17@gmail.com" className="contact-item scroll-reveal scroll-reveal-delay-1">
@@ -401,7 +493,6 @@ export default function App() {
                 <div><div className="contact-label">GitHub</div><div className="contact-value clickable">github.com/HenokTade</div></div>
               </a>
             </div>
-
             <div className="footer">
               Designed & Built by Henok Tademe &copy; {new Date().getFullYear()}
             </div>

@@ -553,6 +553,7 @@ ul{list-style:none}
   .nav-links{flex-direction:row;flex-wrap:wrap;gap:0}
   .nav-links a .nav-indicator{display:none}
   .nav-links a{padding:0.4rem 0.8rem;font-size:0.8rem}
+  .scroll-top-btn{bottom:1.2rem;right:1.2rem;width:40px;height:40px;font-size:1.1rem}
 }
 
 @media(max-width:600px){
@@ -563,8 +564,99 @@ ul{list-style:none}
   .contact-grid{grid-template-columns:1fr}
   .projects-grid{gap:1rem}
   .project-card{padding:1.25rem}
+  .scroll-top-btn{bottom:1rem;right:1rem;width:36px;height:36px;font-size:1rem}
+  .resume-btn{font-size:0.8rem;padding:0.55rem 1rem}
+  .typewriter{white-space:normal;min-height:1.5em}
 }
 
+/* ── CUSTOM CURSOR ── */
+@media(hover:hover)and(pointer:fine){
+  .custom-cursor,.cursor-trail{position:fixed;pointer-events:none;z-index:9999;border-radius:50%}
+  .custom-cursor{
+    width:8px;height:8px;
+    background:var(--accent);
+    top:0;left:0;
+    box-shadow:0 0 12px var(--accent),0 0 24px var(--accent-glow);
+    transition:width 0.15s,height 0.15s
+  }
+  .cursor-trail{
+    width:40px;height:40px;
+    top:0;left:0;
+    border:1px solid var(--accent);
+    background:var(--accent-glow);
+    opacity:0.35
+  }
+  a:hover~.custom-cursor,.project-card:hover~.custom-cursor,
+  button:hover~.custom-cursor{width:12px;height:12px}
+}
+
+/* ── TYPEWRITER ── */
+.typewriter{white-space:nowrap}
+.cursor-blink{
+  display:inline-block;margin-left:2px;
+  font-weight:300;color:var(--accent);
+  animation:blink 0.8s step-end infinite
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress-track{
+  position:fixed;top:0;left:0;right:0;
+  height:3px;z-index:9998;
+  background:transparent
+}
+.scroll-progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),#8b5cf6,var(--accent-light));
+  transition:width 0.1s linear;
+  box-shadow:0 0 12px var(--accent-glow)
+}
+
+/* ── SCROLL-TO-TOP ── */
+.scroll-top-btn{
+  position:fixed;bottom:2rem;right:2rem;
+  width:44px;height:44px;
+  border-radius:50%;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  color:var(--accent-light);
+  font-size:1.3rem;
+  cursor:pointer;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:translateY(20px);
+  transition:var(--transition);
+  pointer-events:none
+}
+.scroll-top-btn.visible{
+  opacity:1;transform:translateY(0);
+  pointer-events:auto
+}
+.scroll-top-btn:hover{
+  background:var(--accent);color:#fff;
+  border-color:var(--accent);
+  box-shadow:0 0 24px var(--accent-glow);
+  transform:translateY(-3px)
+}
+
+/* ── RESUME BUTTON ── */
+.resume-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  padding:0.65rem 1.2rem;
+  border-radius:var(--radius-sm);
+  background:var(--accent-glow);
+  border:1px solid var(--accent);
+  color:var(--accent-light);
+  font-size:0.85rem;font-weight:600;
+  transition:var(--transition);
+  margin-bottom:1.5rem
+}
+.resume-btn:hover{
+  background:var(--accent);color:#fff;
+  box-shadow:0 0 24px var(--accent-glow);
+  transform:translateY(-2px)
+}
+
+/* ── THEME TOGGLE ── */
 .theme-toggle{
   width:40px;height:40px;
   border-radius:50%;
