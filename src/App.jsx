@@ -342,6 +342,119 @@ export default function App() {
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
 
+  const downloadResume = useCallback(() => {
+    const w = window.open('', '_blank')
+    if (!w) { alert('Please allow pop-ups to download the resume.'); return }
+    w.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Henok Tademe - Resume</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <style>
+          *{margin:0;padding:0;box-sizing:border-box}
+          body{font-family:'Inter',sans-serif;color:#1d1d1f;padding:2.5rem;max-width:850px;margin:0 auto;font-size:14px;line-height:1.6}
+          h1{font-size:2rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:0.15rem}
+          .sub{color:#6366f1;font-weight:500;font-size:1rem;margin-bottom:0.5rem}
+          .contact-line{color:#555;font-size:0.85rem;margin-bottom:1.5rem;display:flex;flex-wrap:wrap;gap:0.5rem 1.5rem}
+          .contact-line a{color:#6366f1;text-decoration:none}
+
+          h2{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:#6366f1;border-bottom:2px solid #e5e5ea;padding-bottom:0.35rem;margin-top:1.75rem;margin-bottom:1rem}
+
+          .summary{color:#333;font-size:0.92rem;line-height:1.7;margin-bottom:0.5rem}
+
+          .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem 2rem;margin-bottom:0.5rem}
+          .skill-cat{display:flex;gap:0.5rem}
+          .skill-cat .cat{font-weight:600;color:#333;min-width:80px;font-size:0.82rem}
+          .skill-cat .items{color:#555;font-size:0.82rem}
+
+          .project{margin-bottom:1rem}
+          .project-title{font-weight:600;font-size:0.95rem;color:#1d1d1f;margin-bottom:0.2rem}
+          .project-desc{color:#555;font-size:0.82rem;margin-bottom:0.2rem}
+          .project-tech{color:#6366f1;font-size:0.75rem;font-weight:500}
+
+          .exp-item{margin-bottom:0.2rem;padding-left:1rem;position:relative;color:#555;font-size:0.82rem}
+          .exp-item::before{content:'▹';position:absolute;left:0;color:#6366f1}
+
+          .edu{color:#555;font-size:0.88rem}
+
+          @media print{body{padding:0.5in}}
+          @media(max-width:600px){.skills-grid{grid-template-columns:1fr}}
+        </style>
+      </head>
+      <body>
+        <h1>Henok Tademe</h1>
+        <div class="sub">Software Engineering Graduate</div>
+        <div class="contact-line">
+          <span>📧 henoktademe17@gmail.com</span>
+          <span>📞 +251 982 021 273</span>
+          <span>🔗 linkedin.com/in/henok-tademe</span>
+          <span>🐙 github.com/HenokTade</span>
+          <span>📍 Addis Ababa, Ethiopia</span>
+        </div>
+
+        <h2>Summary</h2>
+        <p class="summary">Recent Software Engineering graduate with a strong foundation in full-stack development and network security. Experienced in building end-to-end solutions with React, Node.js, Python, and cloud platforms. Passionate about writing clean, efficient code and continuously improving software architecture. Eager to contribute to a dynamic development team as a Junior Software Engineer.</p>
+
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-cat"><span class="cat">Languages</span><span class="items">C++, Java, Python, PHP, JavaScript, TypeScript</span></div>
+          <div class="skill-cat"><span class="cat">Frontend</span><span class="items">React, HTML5/CSS3, Tailwind CSS, Bootstrap, Vite</span></div>
+          <div class="skill-cat"><span class="cat">Backend</span><span class="items">Node.js+Express, Django, Flask, FastAPI, PHP</span></div>
+          <div class="skill-cat"><span class="cat">Databases</span><span class="items">MySQL, PostgreSQL, MongoDB, SQLite, Firebase, Redis</span></div>
+          <div class="skill-cat"><span class="cat">DevOps</span><span class="items">Docker, Kubernetes, Nginx, Vercel, Git</span></div>
+          <div class="skill-cat"><span class="cat">Security</span><span class="items">REST APIs, JWT, MFA, Linux, System Hardening</span></div>
+        </div>
+
+        <h2>Projects</h2>
+        <div class="project">
+          <div class="project-title">Quiz App for Sunday School Students</div>
+          <div class="project-tech">React 19, TypeScript, Firebase, Tailwind CSS</div>
+          <div class="project-desc">Full-stack quiz platform with Google Sign-In, email/password auth, timed quizzes, progress tracking, and admin CRUD dashboard with bulk upload.</div>
+        </div>
+        <div class="project">
+          <div class="project-title">Adaptive NGFW Prototype</div>
+          <div class="project-tech">Python, Flask, nftables, Suricata, ClamAV</div>
+          <div class="project-desc">Two-VM security lab with Flask Decision Engine API, automation CLI tools, comprehensive firewall rules, and DoS protection.</div>
+        </div>
+        <div class="project">
+          <div class="project-title">SEPBAS - Secure Employee Promotion & Bonus Approval System</div>
+          <div class="project-tech">React, Node.js+Express, PostgreSQL</div>
+          <div class="project-desc">Full-stack portal implementing all 5 access control models (RBAC, MAC, DAC, RuBAC, ABAC) with MFA and audit logging.</div>
+        </div>
+        <div class="project">
+          <div class="project-title">Inventory Tracker System</div>
+          <div class="project-tech">Flask, Python, JSON</div>
+          <div class="project-desc">Web-based inventory management with role-based access control and JSON persistence.</div>
+        </div>
+        <div class="project">
+          <div class="project-title">Finote Tsidk Book Store</div>
+          <div class="project-tech">Flutter, Dart, Firebase, Riverpod</div>
+          <div class="project-desc">Cross-platform mobile app for bookstore inventory, sales tracking, and PDF report generation.</div>
+        </div>
+
+        <h2>Experience</h2>
+        <div>
+          <div style="font-weight:600;font-size:0.95rem">Software Development Intern</div>
+          <div style="color:#6366f1;font-weight:500;font-size:0.82rem;margin-bottom:0.4rem">GIV Ethiopia Voluntary Organization &amp; AASTU ICT Office | Jul – Sep 2025</div>
+          <div class="exp-item">Built the AASTU Archive System with document management and full-text search</div>
+          <div class="exp-item">Developed responsive frontend for GIV Ethiopia official website</div>
+          <div class="exp-item">Delivered production-grade code following clean architecture patterns</div>
+          <div class="exp-item">Received Certificate of Completion from GIV Ethiopia</div>
+        </div>
+
+        <h2>Education</h2>
+        <div class="edu">
+          <strong>B.Sc. Software Engineering</strong> — Addis Ababa Science and Technology University
+          <br/>Graduated June 2026 | GPA: 3.40 / 4.00
+          <br/>Final Year Project: Adaptive Next Generation Firewall
+        </div>
+      </body></html>
+    `)
+    w.document.close()
+    setTimeout(() => w.print(), 400)
+  }, [])
+
   return (
     <>
       <Particles />
@@ -372,9 +485,9 @@ export default function App() {
             </div>
 
             {/* 5. RESUME DOWNLOAD BUTTON */}
-            <a href="/resume.pdf" download className="resume-btn">
+            <button onClick={downloadResume} className="resume-btn">
               📄 Download Resume
-            </a>
+            </button>
 
             <nav className="nav-links">
               {NAV_ITEMS.map((item) => (
