@@ -221,7 +221,19 @@ function AnimatedNumber({ value, suffix = '' }) {
 }
 
 export default function App() {
+  const [dark, setDark] = useState(true)
   const activeSection = useActiveSection()
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme')
+    const isDark = saved ? saved === 'dark' : true
+    setDark(isDark)
+  }, [])
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', dark)
+    localStorage.setItem('theme', dark ? 'dark' : 'light')
+  }, [dark])
 
   return (
     <>
@@ -230,7 +242,12 @@ export default function App() {
         {/* Sidebar */}
         <aside className="sidebar">
           <div className="sidebar-inner">
-            <div className="avatar">HT</div>
+            <div style={{ display:'flex', alignItems:'center', gap:'0.75rem' }}>
+              <div className="avatar">HT</div>
+              <button onClick={() => setDark(p => !p)} className="theme-toggle" aria-label="Toggle theme">
+                {dark ? '☀️' : '🌙'}
+              </button>
+            </div>
             <h1>Henok Tademe</h1>
             <div className="title-role">Software Engineering Graduate</div>
             <div className="title-tagline">
