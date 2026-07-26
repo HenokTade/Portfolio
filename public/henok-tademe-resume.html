@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Resume of Henok Tademe, software engineering graduate." />
+    <title>Henok Tademe | Resume</title>
+    <style>
+      :root { color: #18212f; font-family: Arial, sans-serif; }
+      * { box-sizing: border-box; }
+      body { max-width: 850px; margin: 0 auto; padding: 48px 40px; line-height: 1.45; }
+      header { border-bottom: 3px solid #4f46e5; padding-bottom: 18px; margin-bottom: 24px; }
+      h1 { margin: 0; font-size: 32px; letter-spacing: -0.03em; }
+      h2 { border-bottom: 1px solid #cbd5e1; font-size: 15px; letter-spacing: .08em; margin: 24px 0 12px; padding-bottom: 5px; text-transform: uppercase; }
+      h3 { font-size: 16px; margin: 15px 0 3px; }
+      p { margin: 6px 0; }
+      ul { margin: 6px 0; padding-left: 20px; }
+      li { margin: 3px 0; }
+      .contact, .muted { color: #475569; }
+      .contact { margin-top: 7px; font-size: 14px; }
+      .row { align-items: baseline; display: flex; gap: 16px; justify-content: space-between; }
+      .role { font-weight: 700; }
+      .print { background: #4f46e5; border: 0; border-radius: 6px; color: white; cursor: pointer; font: inherit; margin-bottom: 24px; padding: 10px 16px; }
+      @media (max-width: 600px) { body { padding: 28px 20px; } .row { display: block; } }
+      @media print { body { max-width: none; padding: 0; } .print { display: none; } }
+    </style>
+  </head>
+  <body>
+    <button class="print" type="button" onclick="window.print()">Print or save as PDF</button>
+    <header>
+      <h1>Henok Tademe</h1>
+      <p class="contact">Addis Ababa, Ethiopia | +251 982 021 273 | henoktademe17@gmail.com</p>
+      <p class="contact">linkedin.com/in/henok-tademe | github.com/HenokTade</p>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p>Software Engineering graduate with hands-on experience building full-stack web applications and security-focused systems. Skilled in React, TypeScript, Python, Flask, Node.js, PostgreSQL, and Firebase. Seeking a junior software engineering role focused on reliable, secure products.</p>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <p><strong>Languages:</strong> C++, Java, Python, PHP, JavaScript, TypeScript</p>
+      <p><strong>Frontend:</strong> React, HTML5, CSS3, Tailwind CSS, Bootstrap, Vite</p>
+      <p><strong>Backend:</strong> Node.js, Express, Django, Flask, FastAPI</p>
+      <p><strong>Data and tools:</strong> PostgreSQL, MySQL, MongoDB, SQLite, Firebase, Redis, Docker, Kubernetes, Nginx, Git</p>
+      <p><strong>Security:</strong> REST APIs, JWT, MFA, Linux, system hardening, nftables, Suricata</p>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="row"><span class="role">Software Development Intern</span><span class="muted">Jul 2025 - Sep 2025</span></div>
+      <p>GIV Ethiopia Voluntary Organization and AASTU ICT/Application Development Office</p>
+      <ul>
+        <li>Built an archive system with document management and search functionality.</li>
+        <li>Developed a responsive frontend for the GIV Ethiopia official website.</li>
+        <li>Received a Certificate of Completion from GIV Ethiopia.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+      <h3>Quiz App for Sunday School Students</h3>
+      <p>React 19, TypeScript, Firebase, Tailwind CSS</p>
+      <ul><li>Built a role-based quiz platform with Google and email authentication, timed quizzes, progress tracking, and an admin dashboard with CRUD and bulk upload.</li></ul>
+      <h3>Adaptive NGFW Prototype</h3>
+      <p>Python, Flask, nftables, Suricata, ClamAV</p>
+      <ul><li>Built a two-VM security lab with firewall rules, intrusion detection, file scanning, DoS protection, and a Flask decision engine.</li></ul>
+      <h3>SEPBAS: Secure Employee Promotion and Bonus Approval System</h3>
+      <p>React, Node.js, Express, PostgreSQL</p>
+      <ul><li>Developed a secure portal implementing RBAC, MAC, DAC, RuBAC, ABAC, MFA, audit logging, and document management.</li></ul>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="row"><span class="role">B.Sc. in Software Engineering, Addis Ababa Science and Technology University</span><span class="muted">Graduated Jun 2026</span></div>
+      <p>GPA: 3.40 / 4.00 | Final Year Project: Adaptive Next Generation Firewall</p>
+    </section>
+  </body>
+</html>
