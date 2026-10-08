@@ -17,7 +17,7 @@ export default function About() {
 
       <div className="about-highlights scroll-reveal scroll-reveal-delay-2">
         <div className="about-card"><div className="card-icon">🎓</div><div className="card-value"><AnimatedNumber value={2026} /></div><div className="card-label">Graduation Year</div></div>
-        <div className="about-card"><div className="card-icon">📁</div><div className="card-value"><AnimatedNumber value={5} /></div><div className="card-label">Projects Built</div></div>
+        <div className="about-card"><div className="card-icon">📁</div><div className="card-value"><AnimatedNumber value={7} /></div><div className="card-label">Projects Built</div></div>
         <div className="about-card"><div className="card-icon">💻</div><div className="card-value"><AnimatedNumber value={20} suffix="+" /></div><div className="card-label">Technologies</div></div>
         <div className="about-card"><div className="card-icon">🌍</div><div className="card-value">EN</div><div className="card-label">Languages</div></div>
       </div>
