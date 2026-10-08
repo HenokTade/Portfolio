@@ -27,7 +27,7 @@ export default function Projects() {
 
       <div className="projects-grid">
         {filteredProjects.map((p, i) => (
-          <div key={p.title} className={`project-card scroll-reveal scroll-reveal-delay-${i % 4}`}>
+          <div key={p.title} className={`project-card tilt-card scroll-reveal scroll-reveal-delay-${i % 4}`}>
             <div className="project-top">
               <h3 className="project-title">{p.title}</h3>
               <div className="project-links">
