@@ -43,7 +43,7 @@ export default function About() {
     <Section id="about" number="01" title="About">
       <p className="about-text scroll-reveal" dangerouslySetInnerHTML={{ __html: displayedText }}></p>
       <p className="about-text scroll-reveal scroll-reveal-delay-1">
-        Currently seeking a <strong>Junior Software Engineer</strong> role where I can contribute to
+        Currently seeking a <strong>Full Stack Software Engineer</strong> role where I can contribute to
         impactful products, collaborate with experienced engineers, and continue growing as a developer.
       </p>
 
