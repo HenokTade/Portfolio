@@ -28,7 +28,7 @@ export default function App() {
       <div className="app-layout">
         <Sidebar dark={dark} setDark={setDark} />
 
-        <main className="main-content">
+        <main className={`main-content ${isLoaded ? 'loaded' : ''}`}>
           <About />
           <Skills />
           <Projects />
