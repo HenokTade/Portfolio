@@ -76,7 +76,19 @@ Recent Software Engineering graduate with a strong foundation in full-stack deve
 \\cvline{GitHub: https://github.com/henok-tesfaye/Sunday-School-Book-Store}
 \\cvline{\\delimiter\\up]}
 
-\\section{Education}
+\\\project{Inventory Order Management System}
+\\cvline{\\\\ Full-stack inventory and order management application with role-based access control\\\\\nBuilt with Django REST Framework backend and React frontend, featuring product catalog, order processing, inventory tracking, and user management\\\\\nImplemented RESTful APIs, JWT authentication, PostgreSQL database, Redis caching, and Celery for background tasks; deployed on Vercel with Docker containerization}
+\\cvline{Technologies: Django, Django REST Framework, React, PostgreSQL, Redis, Celery, Docker, Vercel}
+\\cvline{Live: https://invorder.vercel.app/ | GitHub: https://github.com/HenokTade/Inventory-Order-Management-System}
+\\cvline{\\\\delimiter\\up]}
+
+\\project{Movie Recommendation Web App}
+\\cvline{\\\\ Web application providing personalized movie recommendations using collaborative filtering and content-based algorithms\\\\\nFeatures user authentication, movie search, rating system, and recommendation dashboard\\\\\nBuilt with modern web technologies for responsive UI and scalable backend}
+\\cvline{Technologies: [To be verified] - likely includes React/Vue, Node.js/Python, and TMDB API or similar}
+\\cvline{GitHub: https://github.com/HenokTade/Movie-Recommendation-Web-App}
+\\cvline{\\\\delimiter\\up]}
+
+\section{Education}
 \\cvline{\\textbf{Bachelor of Science in Software Engineering} \\hspace{2cm} June 2026 | GPA: 3.40/4.00\\linebreak Addis Ababa Science and Technology University}
 \\cvline{Final Year Project: Adaptive Next Generation Firewall (Team Project)}
 
