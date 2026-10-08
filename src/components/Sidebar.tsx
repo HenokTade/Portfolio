@@ -25,17 +25,17 @@ export default function Sidebar({ dark, setDark }: SidebarProps) {
         </div>
 
         <div className="sidebar-actions">
-          <a href="/henok-tademe-resume.html" target="_blank" className="resume-btn primary">
+          <a href="/henok-tademe-resume.html" target="_blank" className="resume-btn primary liquid-btn">
             <span>📄</span> View Resume
           </a>
-          <a href="/henok-tademe-resume.html" download className="resume-btn secondary">
+          <a href="/henok-tademe-resume.html" download className="resume-btn secondary liquid-btn">
             <span>📥</span> Download PDF
           </a>
         </div>
 
         <div className="social-links">
           {SOCIAL_LINKS.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" title={s.label}>
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" title={s.label} className="liquid-btn">
               {s.icon}
             </a>
           ))}
