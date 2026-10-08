@@ -19,8 +19,13 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark)
-    localStorage.setItem('theme', dark ? 'dark' : 'light')
+    document.documentElement.classList.remove('dark', 'light');
+    if (dark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.add('light');
+    }
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
   }, [dark])
 
   // Set isLoaded to true after component mounts to trigger page load animation
