@@ -28,23 +28,25 @@ export default function Projects() {
       <div className="projects-grid">
         {filteredProjects.map((p, i) => (
           <div key={p.title} className={`project-card tilt-card scroll-reveal scroll-reveal-delay-${i % 4}`}>
-            <div className="project-top">
-              <h3 className="project-title">{p.title}</h3>
-              <div className="project-links">
-                {p.live && (
-                  <a href={p.live} target="_blank" rel="noopener noreferrer" title="Live Demo">🔗</a>
-                )}
-                <a href={p.github} target="_blank" rel="noopener noreferrer" title="Source Code">📂</a>
-              </div>
-            </div>
-            <div className="project-category-tag">{p.category}</div>
-            <div className="project-tech">
-              {p.tech.map((t) => <span key={t}>{t}</span>)}
-            </div>
-            <div className="project-desc">
-              <p>{p.description}</p>
-            </div>
-          </div>
+  <a href={p.live || p.github} target="_blank" rel="noopener noreferrer" className="project-link">
+    <div className="project-top">
+      <h3 className="project-title">{p.title}</h3>
+      <div className="project-links">
+        {p.live && (
+          <a href={p.live} target="_blank" rel="noopener noreferrer" title="Live Demo" onClick={(e) => e.stopPropagation()}>🔗</a>
+        )}
+        <a href={p.github} target="_blank" rel="noopener noreferrer" title="Source Code" onClick={(e) => e.stopPropagation()}>📂</a>
+      </div>
+    </div>
+    <div className="project-category-tag">{p.category}</div>
+    <div className="project-tech">
+      {p.tech.map((t) => <span key={t}>{t}</span>)}
+    </div>
+    <div className="project-desc">
+      <p>{p.description}</p>
+    </div>
+  </a>
+</div>
         ))}
       </div>
     </Section>
