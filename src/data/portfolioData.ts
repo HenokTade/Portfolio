@@ -29,6 +29,7 @@ export interface SkillCategory {
 export interface ExperienceItem {
   role: string;
   company: string;
+
   period: string;
   items: string[];
 }
@@ -96,8 +97,9 @@ export const PROJECTS: Project[] = [
   },
   {
     title: 'Movie Recommendation Web App',
-    tech: ['Next.js','React', 'Tailwinf CSS','SuperBase','TMDB API'],
+    tech: ['Next.js', 'React', 'Tailwind CSS', 'SuperBase', 'TMDB API'],
     description: 'Web application providing personalized movie recommendations using collaborative filtering and content-based algorithms. Features user authentication, movie search, rating system, and recommendation dashboard. Built with modern web technologies for responsive UI and scalable backend.',
+    live: 'https://habflix.vercel.app/',
     github: 'https://github.com/HenokTade/Movie-Recommendation-Web-App',
     category: 'Full-stack',
   },
