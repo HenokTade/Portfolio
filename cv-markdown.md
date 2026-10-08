@@ -63,6 +63,21 @@ REST APIs, JWT, MFA, Linux, System Hardening
 - Technologies: Flutter, Dart, Firebase, Riverpod, Mobile Development
 **GitHub:** https://github.com/henok-tesfaye/Sunday-School-Book-Store
 
+### 6. Inventory Order Management System
+- Full-stack inventory and order management application with role-based access control
+- Built with Django REST Framework backend and React frontend, featuring product catalog, order processing, inventory tracking, and user management
+- Implemented RESTful APIs, JWT authentication, PostgreSQL database, Redis caching, and Celery for background tasks
+- Deployed on Vercel with Docker containerization
+- Technologies: Django, Django REST Framework, React, PostgreSQL, Redis, Celery, Docker, Vercel
+**Live:** https://invorder.vercel.app/ | **GitHub:** https://github.com/HenokTade/Inventory-Order-Management-System
+
+### 7. Movie Recommendation Web App
+- Web application providing personalized movie recommendations using collaborative filtering and content-based algorithms
+- Features user authentication, movie search, rating system, and recommendation dashboard
+- Built with modern web technologies for responsive UI and scalable backend
+- Technologies: [To be verified] - likely includes React/Vue, Node.js/Python, and TMDB API or similar
+**GitHub:** https://github.com/HenokTade/Movie-Recommendation-Web-App
+
 ## Education
 **Bachelor of Science in Software Engineering**
 Addis Ababa Science and Technology University | June 2026 | GPA: 3.40/4.00
