@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 
 export default function App() {
   const [dark, setDark] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem('theme')
@@ -21,6 +22,11 @@ export default function App() {
     document.documentElement.classList.toggle('dark', dark)
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
+
+  // Set isLoaded to true after component mounts to trigger page load animation
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
 
   return (
     <>
