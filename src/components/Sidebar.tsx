@@ -1,5 +1,6 @@
 import { NAV_ITEMS, SOCIAL_LINKS } from '../data/portfolioData';
 import { useActiveSection } from '../hooks/useActiveSection';
+import { useState } from 'react';
 
 interface SidebarProps {
   dark: boolean;
@@ -8,13 +9,24 @@ interface SidebarProps {
 
 export default function Sidebar({ dark, setDark }: SidebarProps) {
   const activeSection = useActiveSection();
+  const [isRotating, setIsRotating] = useState(false);
+
+  const handleThemeToggle = () => {
+    setIsRotating(true);
+    setDark(p => !p);
+
+    // Reset rotation state after animation completes
+    setTimeout(() => {
+      setIsRotating(false);
+    }, 500); // Match CSS animation duration
+  };
 
   return (
     <aside className="sidebar">
       <div className="sidebar-inner">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div className="avatar">HT</div>
-          <button onClick={() => setDark(p => !p)} className="theme-toggle" aria-label="Toggle theme">
+          <button onClick={handleThemeToggle} className={`theme-toggle${isRotating ? ' rotating' : ''}`} aria-label="Toggle theme">
             {dark ? '☀️' : '🌙'}
           </button>
         </div>
