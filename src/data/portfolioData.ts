@@ -62,8 +62,16 @@ export const PROJECTS: Project[] = [
     title: 'Adaptive NGFW Prototype',
     tech: ['Python', 'Flask', 'nftables', 'Suricata', 'ClamAV'],
     description: 'Two-VM security lab implementing modern network defense. Built a Flask Decision Engine API, automation CLI tools, comprehensive firewall rules, and DoS protection.',
-    github: 'https://github.com/henokase/ngfw-prototype',
+    github: 'https://github.com/HenokTade/ngfw-prototype',
     category: 'Security',
+  },
+  {
+    title: 'Inventory Order Management System',
+    tech: ['Django', 'Django REST Framework', 'React', 'PostgreSQL', 'Redis', 'Celery', 'Docker', 'Vercel'],
+    description: 'Full-stack inventory and order management application with role-based access control. Built with Django REST Framework backend and React frontend featuring product catalog, order processing, inventory tracking, and user management. Implemented RESTful APIs, JWT authentication, PostgreSQL database, Redis caching, and Celery for background tasks; deployed on Vercel with Docker containerization.',
+    live: 'https://invorder.vercel.app/',
+    github: 'https://github.com/HenokTade/Inventory-Order-Management-System',
+    category: 'Full-stack',
   },
   {
     title: 'SEPBAS · Access Control Portal',
@@ -85,6 +93,13 @@ export const PROJECTS: Project[] = [
     description: 'Cross-platform mobile app for bookstore operations — inventory tracking, sales analytics, and PDF report generation with Riverpod state management.',
     github: 'https://github.com/HenokTade/Sunday-School-Book-Store',
     category: 'Mobile',
+  },
+  {
+    title: 'Movie Recommendation Web App',
+    tech: ['Next.js','React', 'Tailwinf CSS','SuperBase','TMDB API'],
+    description: 'Web application providing personalized movie recommendations using collaborative filtering and content-based algorithms. Features user authentication, movie search, rating system, and recommendation dashboard. Built with modern web technologies for responsive UI and scalable backend.',
+    github: 'https://github.com/HenokTade/Movie-Recommendation-Web-App',
+    category: 'Full-stack',
   },
 ];
 
